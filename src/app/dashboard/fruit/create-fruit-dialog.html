@@ -1,0 +1,81 @@
+<h1 mat-dialog-title>Create a new fruit</h1>
+<div mat-dialog-content>
+
+    <mat-card class="example-card">
+        <mat-card-content>
+            <form [formGroup]="FormGroup">
+                <h1> Fruit Information </h1>
+                <mat-grid-list [cols]="breakpoint" rowHeight="2:1" (window:resize)="onResize($event)">
+                    <mat-grid-tile>
+                        <mat-form-field>
+                            <mat-label>Name</mat-label>
+                            <input matInput formControlName="name" placeholder="Name">
+                            <mat-error
+                                *ngIf="FormGroup.controls['name'].invalid && (FormGroup.controls['name'].dirty || FormGroup.controls['name'].touched)">
+                                Name is invalid
+                            </mat-error>
+                        </mat-form-field></mat-grid-tile>
+                    <mat-grid-tile> <mat-form-field>
+                            <mat-label>Family</mat-label>
+                            <input matInput formControlName="family" placeholder="Family">
+                        </mat-form-field></mat-grid-tile>
+                    <mat-grid-tile> <mat-form-field>
+                            <mat-label>Order</mat-label>
+                            <input matInput formControlName="order" placeholder="Order">
+                        </mat-form-field></mat-grid-tile>
+                    <mat-grid-tile> <mat-form-field>
+                            <mat-label>Genus</mat-label>
+                            <input matInput formControlName="genus" placeholder="Genus">
+                        </mat-form-field></mat-grid-tile>
+                </mat-grid-list>
+                <div formGroupName="nutritions">
+                    <h1> Nutritions </h1>
+
+                    <mat-grid-list [cols]="breakpoint" rowHeight="2:1" (window:resize)="onResize($event)">
+                        <mat-grid-tile> <mat-form-field>
+                                <mat-label>Calories</mat-label>
+                                <input matInput formControlName="calories" placeholder="Calories">
+                                <mat-error *ngIf="FormGroup.controls['nutritions'].get('calories')?.hasError('max')">
+                                    Calories are above the range
+                                </mat-error>
+                            </mat-form-field></mat-grid-tile>
+                        <mat-grid-tile> <mat-form-field>
+                                <mat-label>Fat</mat-label>
+                                <input matInput formControlName="fat" placeholder="Fat">
+                            </mat-form-field></mat-grid-tile>
+                        <mat-grid-tile> <mat-form-field>
+                                <mat-label>Sugar</mat-label>
+                                <input matInput formControlName="sugar" placeholder="Sugar">
+                                <!-- <mat-error
+                                    *ngIf="FormGroup.controls['nutritions'].get('sugar')?.hasError('required') && (FormGroup.controls['nutritions'].get('sugar')?.hasError('dirty') || FormGroup.controls['nutritions'].get('sugar')?.hasError('touched'))">
+                                    Sugar is invalid
+                                </mat-error> -->
+                                <mat-error *ngIf="FormGroup.controls['nutritions'].get('sugar')?.hasError('required')">
+                                    Sugar is required
+                                </mat-error>
+                            </mat-form-field></mat-grid-tile>
+                        <mat-grid-tile> <mat-form-field>
+                                <mat-label>Carbohydrates</mat-label>
+                                <input matInput formControlName="carbohydrates" placeholder="Carbohydrates">
+                            </mat-form-field></mat-grid-tile>
+                        <mat-grid-tile> <mat-form-field>
+                                <mat-label>Protein</mat-label>
+                                <input matInput formControlName="protein" placeholder="Protein">
+                            </mat-form-field></mat-grid-tile>
+
+                    </mat-grid-list>
+                </div>
+            </form>
+            <mat-divider></mat-divider>
+        </mat-card-content>
+        <mat-card-actions style="display: flex; justify-content: space-between;">
+            <button mat-button mat-dialog-close>Cancel</button>
+            <h5 style="color: red; margin: auto;" *ngIf="response">
+                {{response}}</h5>
+            <button (click)="submitForm()" mat-flat-button color="primary">Submit</button>
+        </mat-card-actions>
+        <mat-card-footer>
+            <!-- <mat-progress-bar mode="indeterminate"></mat-progress-bar> -->
+        </mat-card-footer>
+    </mat-card>
+</div>
